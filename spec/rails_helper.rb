@@ -48,3 +48,16 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+# Put omniauth in test mode
+OmniAuth.config.test_mode = true
+
+# Add mock auth data for testing
+OmniAuth.config.add_mock :twitter, {
+  provider: 'twitter',
+  uid: '123456',
+  info: {
+    name: 'Test User',
+    nickname: 'fake_test_user'
+  }
+}
