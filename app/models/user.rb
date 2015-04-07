@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
     has_many :lists
+    has_many :watcheds
 
     validates :uid, :username, :name,
         presence: true
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
 
     def display_username
         "@" + self.username
+    end
+
+    def has_seen?(film)
+        self.watcheds.find_by(watchable_id: film.id)
     end
 
     def to_param

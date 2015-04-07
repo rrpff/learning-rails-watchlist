@@ -1,7 +1,6 @@
 class FilmsController < ApplicationController
 
-    before_filter :authenticate!
-    around_filter :current_user_has_permission
+    before_filter :authenticate!, :current_user_has_permission
 
     def create
         @list = List.find params[:list_id]
@@ -17,21 +16,42 @@ class FilmsController < ApplicationController
         render json: @list.delete(@film)
     end
 
+    def watch
+        @list = List.find params[:list_id]
+        @film = @list.films.find params[:id]
+
+        unless current_user.has_seen?(@film)
+            @film.watcheds.create user_id: current_user.id
+        end
+
+        redirect_to @list.user
+        render json: @film
+    end
+
+    def unwatch
+        @list = List.find params[:list_id]
+        @film = @list.films.find params[:id]
+
+        @watched = @film.watcheds.find_by user_id: current_user.id
+        @watched.destroy
+
+        redirect_to @list.user
+        render json: @film
+    end
+
     private
 
     def film_params
-        params.require(:film)
-            .permit(:id, :tmdb_id)
+        params.require(:film).permit(:id, :tmdb_id)
     end
 
     def current_user_has_permission
         @list = List.find params[:list_id]
 
-        if !current_user and current_user.id != @list.user.id
+        unless current_user and current_user.id === @list.user.id
             render json: { error: 'You do not have permission to do that.' }
         end
 
-        yield
     end
 
     # def show

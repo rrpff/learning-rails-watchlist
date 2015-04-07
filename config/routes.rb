@@ -10,7 +10,12 @@ Rails.application.routes.draw do
         only: [:index, :show]
 
     resources :lists do
-        resources :films
+        resources :films do
+            member do
+                get 'watch'
+                get 'unwatch'
+            end
+        end
     end
 
     # Film routes mostly proxy to TMDB API

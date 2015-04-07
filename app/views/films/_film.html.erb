@@ -1,3 +1,13 @@
-<li class='film' data-tmdb-id='<%= film.tmdb_id %>'>
+<li class='film' data-tmdb-id='<%= film.tmdb_id %>' data-added='<%= film.created_at %>'
+    data-list-id='<%= list.id %>' data-film-id='<%= film.id %>'>
     <strong><%= film.title %></strong>
+    <span class="rating"><%= film.rating %></span>
+    <span class="added">added <%= time_ago_in_words film.created_at %> ago</span>
+
+    <% if user_signed_in? and current_user.has_seen?(film) %>
+        <span class="seen">You have seen this</span>
+        <%= link_to 'Unwatch', "/lists/#{list.id}/films/#{film.id}/unwatch", remote: true %>
+    <% else %>
+        <%= link_to 'Watch', "/lists/#{list.id}/films/#{film.id}/watch", remote: true %>
+    <% end %>
 </li>

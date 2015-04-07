@@ -1,6 +1,7 @@
 class Film < ActiveRecord::Base
 
     belongs_to :list
+    has_many :watcheds, as: :watchable
 
     validates :tmdb_id, :title,
         presence: true

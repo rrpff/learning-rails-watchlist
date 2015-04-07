@@ -1,5 +1,7 @@
 <ul class="film-list">
-    <%= render list.films %>
+    <% for film in list.films.order('title ASC') %>
+        <%= render partial: 'films/film', locals: { film: film, list: list } %>
+    <% end %>
 </ul>
 
 <%= render partial: 'lists/form', locals: { list: list } %>
