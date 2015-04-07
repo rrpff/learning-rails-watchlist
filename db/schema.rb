@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407004948) do
+ActiveRecord::Schema.define(version: 20150407010358) do
 
   create_table "films", force: :cascade do |t|
     t.integer  "tmdb_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150407004948) do
   end
 
   add_index "films", ["list_id"], name: "index_films_on_list_id"
+  add_index "films", ["tmdb_id"], name: "index_films_on_tmdb_id", unique: true
 
   create_table "lists", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,7 +34,6 @@ ActiveRecord::Schema.define(version: 20150407004948) do
   add_index "lists", ["user_id"], name: "index_lists_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "avatar"
     t.string   "name"
     t.string   "uid"
     t.string   "username"

@@ -13,4 +13,11 @@ RSpec.describe User, type: :model do
         end
     end
 
+    describe 'instances' do
+        it 'should have a film list' do
+            user = User.create_from_auth @auth
+            user.lists.length.should >= 1
+        end
+    end
+
 end

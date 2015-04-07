@@ -1,9 +1,14 @@
 class User < ActiveRecord::Base
 
-    has_one :list
+    has_many :lists
 
     validates :uid, :username, :name,
         presence: true
+
+    after_create do
+        # Add a films list on creation
+        self.lists << List.new
+    end
 
     def self.create_from_auth(auth)
         User.create uid: auth.uid,
