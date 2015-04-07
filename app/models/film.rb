@@ -6,6 +6,10 @@ class Film < ActiveRecord::Base
         presence: true
 
     def self.create_from_tmdb_id(id)
+        # Find if it already exists
+        search = Film.find_by(tmdb_id: id)
+        return search if search
+
         film = TMDB::Movie.id(id)
 
         Film.create tmdb_id: film.id,

@@ -6,8 +6,6 @@ class List < ActiveRecord::Base
     def add_film(tmdb_id)
         film = Film.find_by(tmdb_id: tmdb_id) || Film.create_from_tmdb_id(tmdb_id)
 
-        puts film.to_json
-
         return nil if !film || self.films.find_by(film.id)
         self.films << film
     end

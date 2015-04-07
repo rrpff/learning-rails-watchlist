@@ -5,8 +5,8 @@ RSpec.describe Film, type: :model do
     describe 'instances' do
 
         it 'should be have a method for creating from a TMDB id' do
-            @film = Film.create_from_tmdb_id 157336
-            puts @film.to_json
+            @film = Film.create_from_tmdb_id(157336)
+            puts @film.title
             # @film.title.should === 'Interstellar'
         end
 

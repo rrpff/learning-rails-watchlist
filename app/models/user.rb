@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
         presence: true
 
     after_create do
-        # Add a films list on creation
+        # Add a "films" list collection on creation
         self.lists << List.new
     end
 
@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
     def display_username
         "@" + self.username
+    end
+
+    def to_param
+        username
     end
 
 end
