@@ -1,3 +1,8 @@
 <h1>Watchlist</h1>
 
-<%= link_to 'Sign in with Twitter', '/auth/twitter' %>
+<% if user_signed_in? %>
+    Hello, <%= current_user.display_username %>!
+    <%= link_to 'Sign out', logout_path %>
+<% else %>
+    <%= link_to 'Sign in with Twitter', '/auth/twitter' %>
+<% end %>

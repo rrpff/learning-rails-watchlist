@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
             name: auth.info.name
     end
 
+    def display_username
+        "@" + self.username
+    end
+
 end
