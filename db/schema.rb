@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407003215) do
+ActiveRecord::Schema.define(version: 20150407004948) do
 
   create_table "films", force: :cascade do |t|
     t.integer  "tmdb_id"
-    t.integer  "user_id"
     t.string   "title"
     t.string   "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "list_id"
   end
 
-  add_index "films", ["user_id"], name: "index_films_on_user_id"
+  add_index "films", ["list_id"], name: "index_films_on_list_id"
 
   create_table "lists", force: :cascade do |t|
     t.integer  "user_id"
