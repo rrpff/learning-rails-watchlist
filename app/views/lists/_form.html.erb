@@ -1,8 +1,6 @@
 <%= form_for [list, list.films.build], remote: true do |f| %>
 
-    <%= f.label :tmdb_id %>
-    <%= f.text_field :tmdb_id %>
-
-    <%= f.submit 'Add film' %>
+    <%= f.text_field :tmdb_id, placeholder: 'Search for films...' %>
+    <%= f.submit 'Add film', class: 'button' %>
 
 <% end %>

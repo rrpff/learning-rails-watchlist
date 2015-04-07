@@ -1,7 +1,10 @@
-<ul class="film-list">
-    <% for film in list.films.order('title ASC') %>
-        <%= render partial: 'films/film', locals: { film: film, list: list } %>
+<section class="film-list-wrap">
+    <% if current_user.id === list.user.id %>
+        <%= render partial: 'lists/form', locals: { list: list } %>
     <% end %>
-</ul>
-
-<%= render partial: 'lists/form', locals: { list: list } %>
+    <ul class="film-list">
+        <% for film in list.films.order('title ASC') %>
+            <%= render partial: 'films/film', locals: { film: film, list: list } %>
+        <% end %>
+    </ul>
+</section>

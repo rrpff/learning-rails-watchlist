@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+$font-sans-serif: 'Lato', sans-serif;
+
+body {
+    font: 100% $font-sans-serif;
+}
+
+.container {
+    margin: auto;
+    padding: 30px 15px;
+    width: 930px;
+    max-width: calc(100% - 30px);
+}

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get '/logout', to: 'sessions#destroy'
 
     resources :users,
+        path: 'user',
         only: [:index, :show]
 
     resources :lists do
@@ -20,6 +21,6 @@ Rails.application.routes.draw do
 
     # Film routes mostly proxy to TMDB API
     # get '/films/:id', to: 'films#show'
-    # get '/films/search/:query', to: 'films#search'
+    get '/films/search/:query', to: 'films#search'
 
 end

@@ -1,12 +1,16 @@
+require 'uri'
+require 'open-uri'
+
 class FilmsController < ApplicationController
 
-    before_filter :authenticate!, :current_user_has_permission
+    before_filter :authenticate!, :current_user_has_permission,
+        except: ['search']
 
     def create
         @list = List.find params[:list_id]
         @film = @list.films.create_from_tmdb_id film_params[:tmdb_id]
 
-        render @film
+        render partial: 'films/film', locals: { list: @list, film: @film }
     end
 
     def destroy
@@ -39,6 +43,15 @@ class FilmsController < ApplicationController
         render json: @film
     end
 
+    def search
+        key = TMDB::API.api_key
+        url = URI.parse "http://api.themoviedb.org/3/search/movie"
+        url.query = URI.encode_www_form api_key: key,
+            query: URI.encode(params[:query])
+
+        render json: url.open.read
+    end
+
     private
 
     def film_params
@@ -59,11 +72,6 @@ class FilmsController < ApplicationController
     #     @film = Film.find_by(tmdb_id: id) || Film.create_by_tmdb_id(id)
 
     #     redirect_to(root_path, notice: "File #{id} cannot be found.") unless @film
-    # end
-
-    # def search
-    #     @films = TMDB::Movie.search params[:query]
-    #     render json: @films.to_json
     # end
 
 end
