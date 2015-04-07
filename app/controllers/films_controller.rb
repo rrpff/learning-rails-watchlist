@@ -7,7 +7,7 @@ class FilmsController < ApplicationController
         @list = List.find params[:list_id]
         @film = @list.films.create_from_tmdb_id film_params[:tmdb_id]
 
-        render json: @film.to_json
+        render @film
     end
 
     def destroy

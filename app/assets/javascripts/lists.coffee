@@ -3,11 +3,6 @@ $ ->
     $form = $('.new_film')
     $list = $('.film-list')
 
-    template = """
-        <li>
-            <strong>#{obj.title}</strong>
-        </li>
-    """
-
-    $form.on 'ajax:success', (ev, data) ->
-        list.append $ template data
+    $form.on 'ajax:success', (ev, html) ->
+        $list.append $(html)
+        console.log arguments
